@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                 // Specifies the JavaScript language version.
+    "module": "commonjs",               // Specifies module code generation.
+    "strict": true,                     // Enable all strict type checking options.
+    "esModuleInterop": true,            // Enables compatibility with ES6 modules.
+    "skipLibCheck": true,               // Skip type checking of declaration files.
+    "forceConsistentCasingInFileNames": true,  // Ensures consistent file naming.
+    "outDir": "./dist",                 // Directory where compiled files are placed.
+    "rootDir": "./src",                 // Directory where TypeScript files are located.
+    "resolveJsonModule": true,          // Allows importing JSON files.
+    "noImplicitAny": true,              // Ensures explicit typing for any types.
+    "moduleResolution": "node",         // Determines how modules are resolved.
+    "allowJs": true,                    // Allows JavaScript files to be compiled.
+    "isolatedModules": true,            // Ensures each file can be safely transpiled without relying on other files.
+    "typeRoots": ["./node_modules/@types", "./src/types"],  // Specifies location for type declarations.
+    "types": ["node", "jest"],          // Includes specific types for Node.js and Jest.
+    "baseUrl": ".",                     // Base directory for resolving non-relative module names.
+    "paths": {
+      "@models/*": ["src/models/*"],    // Maps custom paths to modules (example).
+      "@config/*": ["src/config/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "tests/**/*.ts"],   // Specifies files to include in the compilation.
+  "exclude": ["node_modules", "dist"]            // Specifies files to exclude from compilation.
+}
