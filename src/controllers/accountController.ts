@@ -26,7 +26,7 @@ export async function transferCredit(req: Request, res: Response) {
 export async function transferDebit(req: Request, res: Response) {
     const { fromId, toId, amount } = req.body;
     try {
-        await transferService(toId, fromId, parseFloat(amount), false);
+        await transferService(fromId, toId, parseFloat(amount), false);
         res.status(200).send({ message: "Transfer completed successfully" });
     } catch (error) {
         res.status(500).send({ error });

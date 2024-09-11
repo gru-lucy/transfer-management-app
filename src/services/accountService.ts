@@ -30,17 +30,17 @@ export async function transferService(fromId: number, toId: number, amount: numb
 
         try {
             if (credit) {
-                if (fromAccount.balance < amount) {
-                    throw new Error("Insufficient balance");
-                }
-                fromAccount.balance -= amount;
-                toAccount.balance += amount;
-            } else {
                 if (toAccount.balance < amount) {
                     throw new Error("Insufficient balance");
                 }
-                toAccount.balance -= amount;
-                fromAccount.balance += amount;
+                toAccount.balance = parseFloat(toAccount.balance as unknown as string) - amount;
+                fromAccount.balance = parseFloat(fromAccount.balance as unknown as string) + amount;
+            } else {
+                if (fromAccount.balance < amount) {
+                    throw new Error("Insufficient balance in from account");
+                }
+                fromAccount.balance = parseFloat(fromAccount.balance as unknown as string) - amount;
+                toAccount.balance = parseFloat(toAccount.balance as unknown as string) + amount;
             }
 
             await fromAccount.save({ transaction });
@@ -61,7 +61,7 @@ export async function transferService(fromId: number, toId: number, amount: numb
                 transactionType: credit ? 'credit' : 'debit',
                 status: 'failed',
             }, { transaction });
-            throw error; // Re-throw error to ensure transaction is rolled back
+            throw error;
         }
     });
 }
